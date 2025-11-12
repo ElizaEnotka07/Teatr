@@ -1,0 +1,149 @@
+﻿<Page x:Class="Teatr.Spectakli"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Teatr"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" FontFamily="Times new roman" d:DesignWidth="800"
+      Title="Spectakli">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="40"></RowDefinition>
+        </Grid.RowDefinitions>
+       
+
+            <WrapPanel Grid.Row="0" Orientation="Horizontal"  HorizontalAlignment="Center">
+
+                <StackPanel  Orientation="Horizontal">
+                    <TextBlock Text="Введите текст для поиска" TextAlignment="Right" FontSize="25"></TextBlock>
+                    <TextBox Name="TBoxSearch" TextChanged="TBoxSearch_TextChanged"  Width="240" FontSize="25"></TextBox>
+                    <TextBlock Text="Выберите жанр" TextAlignment="Right" FontSize="25"></TextBlock>
+                    <ComboBox Name ="ComboType" SelectionChanged="ComboType_SelectionChanged_1" FontSize="25" Height="35" Width="150">
+                        <TextBlock>Все жанры</TextBlock>
+                        <TextBlock> Драма</TextBlock>
+                        <TextBlock> Комедия</TextBlock>
+                        <TextBlock> Фэнтези</TextBlock>
+                        <TextBlock> Трагедия</TextBlock>
+                        <TextBlock> Балет</TextBlock>
+                        <TextBlock> Эпопея</TextBlock>
+                    </ComboBox>
+                </StackPanel>
+
+            </WrapPanel>
+        
+
+
+        <StackPanel Grid.Row="1" Orientation="Vertical" Margin="15">
+            <RadioButton Content="По возрастанию цены" GroupName="Sort" Width="400" FontSize="30" Checked="RButtonUp_Checked" Name="RButtonUp"></RadioButton>
+            <RadioButton Content="По убыванию цены" GroupName="Sort" Width="400" FontSize="30" Checked="RButtonDown_Checked" Name="RButtonDown"></RadioButton>
+        </StackPanel>
+        <Button Content="Добавить" Name="AddButton" Click="AddButton_Click" HorizontalAlignment="Right" VerticalAlignment="Bottom" Grid.Row="1" ></Button>
+
+
+        <ListView Name="Spisok" Grid.Row="2" SelectionChanged="Spisok_SelectionChanged">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="250"></ColumnDefinition>
+                            <ColumnDefinition Width="900"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>                           
+                        </Grid.RowDefinitions>
+
+                        
+
+                        <Image Width="200"  Grid.Column="0" Grid.RowSpan="7" Stretch="Uniform" HorizontalAlignment="Center">
+                            <Image.Source>
+                                <Binding Path="Спектакли.Фото">
+                                    <Binding.TargetNullValue>
+                                        <ImageSource>
+                                            /Res/иконкаТеатр.png
+                                        </ImageSource>
+                                    </Binding.TargetNullValue>
+                                </Binding>
+                            </Image.Source>
+                        </Image>
+
+                        <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Horizontal" >
+                            <TextBlock Text="{Binding Спектакли.Название}" FontWeight="Bold" FontSize="20"></TextBlock>                            
+                        </StackPanel>
+
+                        <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal">
+                            <TextBlock Text="Автор: " FontSize="20"></TextBlock>
+                            <TextBlock Text="{Binding Спектакли.Автор}" FontSize="20"></TextBlock>
+                        </StackPanel>
+
+                        <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal">
+                            <TextBlock Text="Жанр: " FontSize="20"></TextBlock>
+                            <TextBlock Text="{Binding Спектакли.Жанр}" FontSize="20"></TextBlock>
+                        </StackPanel>
+
+                        <StackPanel Grid.Row="3" Grid.Column="1" Orientation="Horizontal">
+                            <TextBlock Text="Тип: " FontSize="20"></TextBlock>
+                            <TextBlock Text="{Binding Спектакли.Тип}" FontSize="20"></TextBlock>
+                        </StackPanel>
+
+                        <StackPanel Grid.Row="4" Grid.Column="1" Orientation="Horizontal">
+                            <TextBlock Text="Цена: " FontSize="20"></TextBlock>
+                            <TextBlock Text="{Binding Цена_билета}"  FontSize="20"></TextBlock>
+                            <TextBlock Text=" руб.  " FontSize="20"></TextBlock>                            
+                        </StackPanel>
+
+                        <StackPanel Grid.Row="5" Grid.Column="1" Orientation="Horizontal">
+                            <TextBlock Text="Премьера: " FontSize="20"></TextBlock>
+                            <TextBlock Text="{Binding Дата_премьеры, StringFormat=\{0:dd.MM.yyyy\}}" FontSize="20"></TextBlock>
+                        </StackPanel>
+
+                        <StackPanel Grid.Row="6" Grid.Column="1" Orientation="Horizontal">
+                            <TextBlock Text="Время и дата показа: " FontSize="20"></TextBlock>
+                            <TextBlock Text="{Binding Дни_и_время}" FontSize="20"></TextBlock>
+                        </StackPanel>
+
+                        <StackPanel Grid.Column="1" Grid.Row="7" Orientation="Horizontal">
+                            <Button Name="EditButton" Content="редактировать" Margin="2" Click="EditButton_Click"></Button>
+                            <Button Name="DeleteButton" Content="удалить" Margin="2" Click="DeleteButton_Click"></Button>
+                        </StackPanel>
+
+
+
+                    </Grid>
+                    
+                    
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+
+
+        <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Right">
+            <TextBlock Name ="TBCount" FontSize="18" Height="20"></TextBlock>
+            <TextBlock Name ="TBAllRecords" FontSize="18" Height="20"></TextBlock>
+
+            <Button Name="LeftDirButton" Content="&lt;" Width="20" Height="40" Click="LeftDirButton_Click"></Button>
+
+            <ListBox FontSize="20" Name="PageListBox" MouseUp="PageListBox_MouseUp">
+                <ListBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel Orientation="Horizontal"/>
+                    </ItemsPanelTemplate>
+                </ListBox.ItemsPanel>
+            </ListBox>
+            <Button Name="RightDirButton" Content="&gt;" Width="20" Height="40" Click="RightDirButton_Click"></Button>
+        </StackPanel>
+    </Grid>
+</Page>
